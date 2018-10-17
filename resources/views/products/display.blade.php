@@ -28,7 +28,7 @@
 
     </style>
     <div class="container-fluid">
-        <p class="indicateNav shadow-sm" style="margin:1% 7%;"><a class="text-muted"> Home</a> > Products</p>
+        <p class="indicateNav shadow-sm" style="margin:1% 7%;"><a class="text-muted" href="{{ url('/')  }}"> Home</a> > Products</p>
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-2">

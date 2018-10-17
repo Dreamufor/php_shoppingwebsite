@@ -23,7 +23,7 @@
             <li class="nav-item ml-1 dropdown">
                 <a class="nav-link dropdown-toggle" style="cursor:pointer;" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-gift mr-1"></i>Products</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a href="{{ url('/products/show')  }}" class="dropdown-item">
+                    <a href="{{ url('/products/display')  }}" class="dropdown-item">
                         All Souvenirs
                     </a>
                     <a class="dropdown-item">
@@ -68,10 +68,10 @@
         <ul class="navbar-nav float-right">
             @if(!Auth::user())
             <li class="nav-item bg-light">
-                <a class="nav-link mr-1 ml-1 font-weight-bold"><i class="fas fa-envelope mr-1"></i>Register</a>
+                <a class="nav-link mr-1 ml-1 font-weight-bold" href="{{ url('auth/register')  }}"><i class="fas fa-envelope mr-1"></i>Register</a>
             </li>
             <li class="nav-item bg-light">
-                <a class="nav-link mr-1 ml-1 font-weight-bold"><i class="fas fa-user mr-1"></i>Log in</a>
+                <a class="nav-link mr-1 ml-1 font-weight-bold" href="{{ url('auth/login')  }}"><i class="fas fa-user mr-1"></i>Log in</a>
             </li>
             @else
                 <li class="nav-item ml-3 bg-light">

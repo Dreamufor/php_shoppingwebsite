@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <img class="img-fluid" src="{{ asset($products->imageUrl)}}" alt="Souvenir Image">
+                            <img class="img-fluid" src="{{ asset( $products->imageUrl) }}" alt="Souvenir Image">
                         </div>
                         <div class="col-md-6">
                             <div>
@@ -23,19 +23,19 @@
                                     Name
                                 </dt>
                                 <dd>
-                                    {{$products->name}}
+                                    {{ $products->name }}
                                 </dd>
                                 <dt>
                                     Price
                                 </dt>
                                 <dd>
-                                    <span class="font-weight-bold" style="color:orange">NZD ${{$products->price}}</span>
+                                    <span class="font-weight-bold" style="color:orange">NZD ${{ $products->price }}</span>
                                 </dd>
                                 <dt>
                                     Description
                                 </dt>
                                 <dd>
-                                    {{$products->description}}
+                                    {{ $products->description }}
                                 </dd>
                             </dl>
                             <div class="mt-5">

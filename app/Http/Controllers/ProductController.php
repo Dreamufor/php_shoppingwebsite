@@ -19,24 +19,24 @@ class ProductController extends Controller
     }
 
     public function details(Products $products){
-        return view('products.show', compact('products'));
+        return view('products.details',['products' => $products]);
     }
 
-    public function show(Products $products)
+    public function display(Products $products)
     {
         $products = Products::all();
         $categories = Category::all();
-        return view('products.show',
+        return view('products.display',
             ['products' => $products,
              'categories' => $categories,
             ]);
     }
 
-
     public function create(Products $products)
     {
         $categories = Category::all();
         $suppliers = Supplier::all();
+
 
         return view('products.create',
             [
