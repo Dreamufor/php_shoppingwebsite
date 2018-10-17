@@ -13,7 +13,7 @@ class CreateTableShoppingCart extends Migration
      */
     public function up()
     {
-        //
+
     }
 
     /**
@@ -23,6 +23,6 @@ class CreateTableShoppingCart extends Migration
      */
     public function down()
     {
-        //
+
     }
 }

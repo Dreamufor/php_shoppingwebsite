@@ -14,14 +14,25 @@ class CreateTableOrder extends Migration
     public function up()
     {
         Schema::create('order', function (Blueprint $table) {
+
             $table->increments('id');
             $table->timestamps();
             $table->integer('user_id');
             $table->integer('status') ->default(0);
-            $table->string('receiver_name', 100);
-            $table->decimal('gst', 10, 2) ->default(0.15);
-            // $table->decimal('grand_total', 18, 2) ->nullable;
-            $table->string('address', 100);
+            $table->string('firstName', 30);
+            $table->string('lastName', 30);
+            $table->string('city', 30);
+            $table->string('state');
+            $table->string('postalCode', 10);
+            $table->string('country', 30);
+            $table->string('phone', 11);
+            $table->decimal('gst', 10, 2);
+            $table->decimal('subtotal', 10, 2);
+            $table->decimal('grandTotal', 10, 2);
+            $table->dateTime('orderDate');
+
+
+
         });
     }
 

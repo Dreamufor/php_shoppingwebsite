@@ -12,5 +12,19 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home/index');
 });
+
+Route::get('/index', 'HomeController@index');
+Route::get('/about', 'HomeController@about');
+Route::get('/contact', 'HomeController@contact');
+
+Route::get('/products/index', 'ProductController@index');
+Route::get('/products/show', 'ProductController@show');
+Route::get('/products/create', 'ProductController@create');
+Route::get('/products/edit', 'ProductController@edit');
+Route::get('/products/details', 'ProductController@details');
+Route::get('/products/delete', 'ProductController@delete');
+
+
+
