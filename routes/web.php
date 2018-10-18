@@ -23,10 +23,10 @@ Route::get('/products/index', 'ProductController@index');
 Route::get('/products/display', 'ProductController@display');
 Route::get('/products/create', 'ProductController@create');
 Route::get('/products/edit', 'ProductController@edit');
-Route::get('/products/details', 'ProductController@details');
 Route::get('/products/delete', 'ProductController@delete');
 
-
+Route::get('/category/index', 'CategoryController@index');
+Route::get('/category/create', 'CategoryController@create');
 
 Route::get('auth/login', 'Auth\LoginController@getLogin');
 Route::post('auth/login', 'Auth\LoginController@postLogin');

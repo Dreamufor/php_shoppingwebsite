@@ -57,7 +57,7 @@
                     <a class="nav-link dropdown-toggle" style="cursor:pointer;" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle mr-1"></i>Administrator</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ url('/products/index')  }}">Souvenir</a>
-                        <a class="dropdown-item">Category</a>
+                        <a class="dropdown-item" href="{{ url('/category/index')  }}">Category</a>
                         <a class="dropdown-item">Supplier</a>
                         <a class="dropdown-item">Orders</a>
                         <a class="dropdown-item">Members</a>
