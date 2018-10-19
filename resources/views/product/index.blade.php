@@ -30,17 +30,17 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Image</th><th>Name</th><th>Description</th><th>Category Id</th><th>Supplier Id</th><th>Price</th><th>Actions</th>
+                                        <th>Image</th><th>Name</th><th>Description</th><th>Category</th><th>Supplier</th><th>Price</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($product as $item)
                                     <tr>
                                         <td><img class="card-img-top img-fluid" style="width: 50px; height: auto;" src="{{ asset($item->imgUrl)}}" alt="Souvenir Image"></td>
-                                        <td>{{ $item->name }}</td><td>{{ $item->description }}</td><td>{{ $item->category_id }}</td><td>{{ $item->supplier_id }}</td><td>{{ $item->price }}</td>
+                                        <td>{{ $item->name }}</td><td>{{ $item->description }}</td><td>{{ $item->category->name }}</td><td>{{ $item->supplier->name }}</td><td>$NZD {{ $item->price }}</td>
                                         <td>
                                             <a href="{{ url('/product/' . $item->id) }}" title="View Product"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                            <a href="{{ url('/product/' . $item->id . '/edit') }}" title="Edit Product"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                            {{--<a href="{{ url('/product/' . $item->id . '/edit') }}" title="Edit Product"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>--}}
 
                                             <form method="POST" action="{{ url('/product' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}
@@ -52,7 +52,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <div class="pagination-wrapper "> {!! $product->appends(['search' => Request::get('search')])->render() !!} </div>
+                            <div class="pagination-wrapper"> {!! $product->appends(['search' => Request::get('search')])->render() !!} </div>
                         </div>
 
                     </div>

@@ -12,7 +12,7 @@
                     <div class="card-body">
 
                         <a href="{{ url('/category') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-                        <a href="{{ url('/category/' . $category->id . '/edit') }}" title="Edit Category"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                        {{--<a href="{{ url('/category/' . $category->id . '/edit') }}" title="Edit Category"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>--}}
 
                         <form method="POST" action="{{ url('category' . '/' . $category->id) }}" accept-charset="UTF-8" style="display:inline">
                             {{ method_field('DELETE') }}

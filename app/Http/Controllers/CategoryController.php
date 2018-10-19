@@ -18,7 +18,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
-        $perPage = 25;
+        $perPage = 10;
 
         if (!empty($keyword)) {
             $category = Category::where('name', 'LIKE', "%$keyword%")
@@ -36,9 +36,11 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(Category $category)
     {
-        return view('category.create');
+        return view('category.create',[
+            'category' => $category,
+        ]);
     }
 
     /**

@@ -9,13 +9,27 @@
     {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('category_id') ? 'has-error' : ''}}">
-    <label for="category_id" class="control-label">{{ 'Category Id' }}</label>
-    <input class="form-control" name="category_id" type="number" id="category_id" value="{{ $product->category_id or ''}}" >
+    <label for="category_id" class="control-label">{{ 'Category' }}</label>
+    <select class="form-control" name="category_id" id="category_id-field">
+        @foreach($category as $c)
+            <option value="{{$c->id}}">
+                {{$c -> name}}
+            </option>
+        @endforeach
+    </select>
+    {{--<input class="form-control" name="category_id" type="number" id="category_id" value="{{ $product->category_id or ''}}" >--}}
     {!! $errors->first('category_id', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('supplier_id') ? 'has-error' : ''}}">
-    <label for="supplier_id" class="control-label">{{ 'Supplier Id' }}</label>
-    <input class="form-control" name="supplier_id" type="number" id="supplier_id" value="{{ $product->supplier_id or ''}}" >
+    <label for="supplier_id" class="control-label">{{ 'Supplier' }}</label>
+    <select class="form-control" name="supplier_id" id="supplier_id-field">
+        @foreach($supplier as $s)
+            <option value="{{$s->id}}">
+                {{$s -> name}}
+            </option>
+        @endforeach
+    </select>
+    {{--<input class="form-control" name="supplier_id" type="number" id="supplier_id" value="{{ $product->supplier_id or ''}}" >--}}
     {!! $errors->first('supplier_id', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('price') ? 'has-error' : ''}}">

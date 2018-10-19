@@ -37,10 +37,10 @@
                             <li class="list-group-item alert-light">
                                 <a class="alert-light font-weight-normal bg-transparent">All Souvenirs</a>
                             </li>
-                            @foreach ($categories as $category)
+                            @foreach ($category as $c)
                                 <li class="list-group-item alert-light">
                                     <a class="alert-link font-weight-normal bg-transparent">
-                                        {{$category->name}}
+                                        {{$c->name}}
                                     </a>
                                 </li>
                              @endforeach
@@ -88,16 +88,16 @@
                 </div><br />
                 <hr class="mt-4 ml-4" />
                 <div class="row">
-                    @foreach ($products as $product)
+                    @foreach ($product as $p)
                         <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
                             <div class="card pb-1">
-                                <img class="card-img-top img-fluid" style="width: 100%; height: auto;" src="{{ asset($product->imgUrl)}}" alt="Souvenir Image">
+                                <img class="card-img-top img-fluid" style="width: 100%; height: auto;" src="{{ asset($p->imgUrl)}}" alt="Souvenir Image">
                                 <div class="card-body">
                                     <div>
-                                        <a class="alert-link alert-light" href="{{ url('/product/' . $product->id) }}">{{$product->name}}</a>
+                                        <a class="alert-link alert-light" href="{{ url(' ' . $p->id) }}">{{$p->name}}</a>
                                     </div>
                                     <br />
-                                    <span class="font-weight-bold" style="color:orange">NZD$ {{$product->price}}</span>
+                                    <span class="font-weight-bold" style="color:orange">NZD$ {{$p->price}}</span>
                                     <a class="alert-light alert-link float-right" title="Add to cart"><i class="fa fa-cart-plus" style="font-size:30px;"></i></a>
                                 </div>
                             </div>
@@ -106,14 +106,7 @@
 
                 </div>
 
-                <div class="text-center">
-                    <a class="mr-3 btn btn-outline-secondary @preVDisabled" style="width:100px;">
-                    Previous
-                    </a>
-                    <a class="ml-3 btn btn-outline-secondary @nextDisabled" style="width:100px;">
-                    Next
-                    </a>
-                </div>
+                <div class="pagination-wrapper"> {!! $product->appends(['search' => Request::get('search')])->render() !!} </div>
 
             </div>
             <div class="col-md-1"></div>

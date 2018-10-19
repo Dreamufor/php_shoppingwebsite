@@ -37,9 +37,12 @@ class SupplierController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
+
+    public function create(Supplier $supplier)
     {
-        return view('supplier.create');
+        return view('supplier.create',[
+            'supplier' => $supplier,
+        ]);
     }
 
     /**

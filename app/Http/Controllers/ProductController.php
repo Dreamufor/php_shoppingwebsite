@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Category;
-
+use App\Supplier;
 use App\Product;
 use Illuminate\Http\Request;
 
@@ -19,7 +19,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
-        $perPage = 8;
+        $perPage = 5;
 
         if (!empty($keyword)) {
             $product = Product::where('name', 'LIKE', "%$keyword%")
@@ -36,14 +36,42 @@ class ProductController extends Controller
         return view('product.index', compact('product'));
     }
 
+    public function display(Request $request)
+    {
+        $keyword = $request->get('search');
+        $perPage = 8;
+
+        if (!empty($keyword)) {
+            $product = Product::where('name', 'LIKE', "%$keyword%")
+                ->orWhere('description', 'LIKE', "%$keyword%")
+                ->latest()->paginate($perPage);
+        } else {
+            $product = Product::latest()->paginate($perPage);
+        }
+        $category = Category::all();
+        return view('product.display',compact('product'),
+            [
+                'category' => $category,
+            ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(Product $product)
     {
-        return view('product.create');
+        $category = Category::all();
+        $supplier = Supplier::all();
+
+
+        return view('product.create',
+            [
+                'product' => $product,
+                'category' => $category,
+                'supplier' => $supplier,
+            ]);
     }
 
     /**
@@ -124,13 +152,5 @@ class ProductController extends Controller
         return redirect('product')->with('flash_message', 'Product deleted!');
     }
 
-    public function display()
-    {
-        $products = Product::all();
-        $categories = Category::all();
-        return view('product.display',
-            ['products' => $products,
-                'categories' => $categories,
-            ]);
-    }
+
 }
