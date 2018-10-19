@@ -23,7 +23,7 @@
             <li class="nav-item ml-1 dropdown">
                 <a class="nav-link dropdown-toggle" style="cursor:pointer;" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-gift mr-1"></i>Products</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a href="{{ url('/products/display')  }}" class="dropdown-item">
+                    <a href="{{ url('/product/display')  }}" class="dropdown-item">
                         All Souvenirs
                     </a>
                     <a class="dropdown-item">
@@ -56,9 +56,9 @@
                 <li class="nav-item ml-1 dropdown">
                     <a class="nav-link dropdown-toggle" style="cursor:pointer;" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle mr-1"></i>Administrator</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ url('/products/index')  }}">Souvenir</a>
-                        <a class="dropdown-item" href="{{ url('/category/index')  }}">Category</a>
-                        <a class="dropdown-item">Supplier</a>
+                        <a class="dropdown-item" href="{{ url('product')  }}">Souvenir</a>
+                        <a class="dropdown-item" href="{{ url('category')  }}">Category</a>
+                        <a class="dropdown-item" href="{{ url('supplier')  }}">Supplier</a>
                         <a class="dropdown-item">Orders</a>
                         <a class="dropdown-item">Members</a>
                     </div>

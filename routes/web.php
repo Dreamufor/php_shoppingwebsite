@@ -19,14 +19,8 @@ Route::get('/index', 'HomeController@index');
 Route::get('/about', 'HomeController@about');
 Route::get('/contact', 'HomeController@contact');
 
-Route::get('/products/index', 'ProductController@index');
-Route::get('/products/display', 'ProductController@display');
-Route::get('/products/create', 'ProductController@create');
-Route::get('/products/edit', 'ProductController@edit');
-Route::get('/products/delete', 'ProductController@delete');
 
-Route::get('/category/index', 'CategoryController@index');
-Route::get('/category/create', 'CategoryController@create');
+Route::get('/product/display', 'ProductController@display');
 
 Route::get('auth/login', 'Auth\LoginController@getLogin');
 Route::post('auth/login', 'Auth\LoginController@postLogin');
@@ -35,3 +29,8 @@ Route::get('auth/logout', 'Auth\LoginController@getLogout');
 
 Route::get('auth/register', 'Auth\RegisterController@getRegister');
 Route::post('auth/register', 'Auth\RegisterController@postRegister');
+
+
+Route::resource('supplier', 'SupplierController');
+Route::resource('product', 'ProductController');
+Route::resource('category', 'CategoryController');

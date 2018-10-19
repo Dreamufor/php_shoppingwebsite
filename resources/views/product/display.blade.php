@@ -91,10 +91,10 @@
                     @foreach ($products as $product)
                         <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
                             <div class="card pb-1">
-                                <img class="card-img-top img-fluid" style="width: 100%; height: auto;" src="{{ asset($product->imageUrl)}}" alt="Souvenir Image">
+                                <img class="card-img-top img-fluid" style="width: 100%; height: auto;" src="{{ asset($product->imgUrl)}}" alt="Souvenir Image">
                                 <div class="card-body">
                                     <div>
-                                        <a class="alert-link alert-light" href="{{ url('/products/details')  }}">{{$product->name}}</a>
+                                        <a class="alert-link alert-light" href="{{ url('/product/' . $product->id) }}">{{$product->name}}</a>
                                     </div>
                                     <br />
                                     <span class="font-weight-bold" style="color:orange">NZD$ {{$product->price}}</span>

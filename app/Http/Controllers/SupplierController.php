@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Supplier;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
+use App\Supplier;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
@@ -10,76 +13,110 @@ class SupplierController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $keyword = $request->get('search');
+        $perPage = 25;
+
+        if (!empty($keyword)) {
+            $supplier = Supplier::where('name', 'LIKE', "%$keyword%")
+                ->orWhere('email', 'LIKE', "%$keyword%")
+                ->orWhere('phoneNumber', 'LIKE', "%$keyword%")
+                ->latest()->paginate($perPage);
+        } else {
+            $supplier = Supplier::latest()->paginate($perPage);
+        }
+
+        return view('supplier.index', compact('supplier'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
-        //
+        return view('supplier.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
-        //
+        
+        $requestData = $request->all();
+        
+        Supplier::create($requestData);
+
+        return redirect('supplier')->with('flash_message', 'Supplier added!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Supplier  $supplier
-     * @return \Illuminate\Http\Response
+     * @param  int  $id
+     *
+     * @return \Illuminate\View\View
      */
-    public function show(Supplier $supplier)
+    public function show($id)
     {
-        //
+        $supplier = Supplier::findOrFail($id);
+
+        return view('supplier.show', compact('supplier'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Supplier  $supplier
-     * @return \Illuminate\Http\Response
+     * @param  int  $id
+     *
+     * @return \Illuminate\View\View
      */
-    public function edit(Supplier $supplier)
+    public function edit($id)
     {
-        //
+        $supplier = Supplier::findOrFail($id);
+
+        return view('supplier.edit', compact('supplier'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Supplier  $supplier
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param  int  $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Supplier $supplier)
+    public function update(Request $request, $id)
     {
-        //
+        
+        $requestData = $request->all();
+        
+        $supplier = Supplier::findOrFail($id);
+        $supplier->update($requestData);
+
+        return redirect('supplier')->with('flash_message', 'Supplier updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Supplier  $supplier
-     * @return \Illuminate\Http\Response
+     * @param  int  $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy(Supplier $supplier)
+    public function destroy($id)
     {
-        //
+        Supplier::destroy($id);
+
+        return redirect('supplier')->with('flash_message', 'Supplier deleted!');
     }
 }

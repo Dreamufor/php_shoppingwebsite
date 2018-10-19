@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace DummyNamespace;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use DummyRootNamespaceHttp\Requests;
+use DummyRootNamespaceHttp\Controllers\Controller;
 
-use App\Category;
+use DummyRootNamespace{{modelNamespace}}{{modelName}};
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class DummyClass extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,17 +18,15 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
-        $perPage = 25;
+        $perPage = {{pagination}};
 
         if (!empty($keyword)) {
-            $category = Category::where('name', 'LIKE', "%$keyword%")
-                ->orWhere('description', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
+            ${{crudName}} = {{modelName}}::{{whereSnippet}}latest()->paginate($perPage);
         } else {
-            $category = Category::latest()->paginate($perPage);
+            ${{crudName}} = {{modelName}}::latest()->paginate($perPage);
         }
 
-        return view('category.index', compact('category'));
+        return view('{{viewPath}}{{viewName}}.index', compact('{{crudName}}'));
     }
 
     /**
@@ -38,7 +36,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('category.create');
+        return view('{{viewPath}}{{viewName}}.create');
     }
 
     /**
@@ -50,12 +48,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        
+        {{validationRules}}
         $requestData = $request->all();
-        
-        Category::create($requestData);
+        {{fileSnippet}}
+        {{modelName}}::create($requestData);
 
-        return redirect('category')->with('flash_message', 'Category added!');
+        return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} added!');
     }
 
     /**
@@ -67,9 +65,9 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = Category::findOrFail($id);
+        ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
 
-        return view('category.show', compact('category'));
+        return view('{{viewPath}}{{viewName}}.show', compact('{{crudNameSingular}}'));
     }
 
     /**
@@ -81,9 +79,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::findOrFail($id);
+        ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
 
-        return view('category.edit', compact('category'));
+        return view('{{viewPath}}{{viewName}}.edit', compact('{{crudNameSingular}}'));
     }
 
     /**
@@ -96,13 +94,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        {{validationRules}}
         $requestData = $request->all();
-        
-        $category = Category::findOrFail($id);
-        $category->update($requestData);
+        {{fileSnippet}}
+        ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
+        ${{crudNameSingular}}->update($requestData);
 
-        return redirect('category')->with('flash_message', 'Category updated!');
+        return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} updated!');
     }
 
     /**
@@ -114,8 +112,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::destroy($id);
+        {{modelName}}::destroy($id);
 
-        return redirect('category')->with('flash_message', 'Category deleted!');
+        return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} deleted!');
     }
 }

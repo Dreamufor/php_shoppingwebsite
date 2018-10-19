@@ -2,96 +2,133 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Products;
-use App\Models\Category;
-use App\Models\Supplier;
-use Illuminate\Http\Request;
+use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Category;
+
+use App\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Products::all();
-        return view('products.index',['products' => $products]);
+        $keyword = $request->get('search');
+        $perPage = 8;
+
+        if (!empty($keyword)) {
+            $product = Product::where('name', 'LIKE', "%$keyword%")
+                ->orWhere('description', 'LIKE', "%$keyword%")
+                ->orWhere('category_id', 'LIKE', "%$keyword%")
+                ->orWhere('supplier_id', 'LIKE', "%$keyword%")
+                ->orWhere('price', 'LIKE', "%$keyword%")
+                ->orWhere('imgUrl', 'LIKE', "%$keyword%")
+                ->latest()->paginate($perPage);
+        } else {
+            $product = Product::latest()->paginate($perPage);
+        }
+
+        return view('product.index', compact('product'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
-        //
+        return view('product.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
-        //
+        
+        $requestData = $request->all();
+        
+        Product::create($requestData);
+
+        return redirect('product')->with('flash_message', 'Product added!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Products  $products
-     * @return \Illuminate\Http\Response
+     * @param  int  $id
+     *
+     * @return \Illuminate\View\View
      */
-    public function show(Products $products)
+    public function show($id)
     {
-        //
+        $product = Product::findOrFail($id);
+
+        return view('product.show', compact('product'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Products  $products
-     * @return \Illuminate\Http\Response
+     * @param  int  $id
+     *
+     * @return \Illuminate\View\View
      */
-    public function edit(Products $products)
+    public function edit($id)
     {
-        //
+        $product = Product::findOrFail($id);
+
+        return view('product.edit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Products  $products
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param  int  $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Products $products)
+    public function update(Request $request, $id)
     {
-        //
+        
+        $requestData = $request->all();
+        
+        $product = Product::findOrFail($id);
+        $product->update($requestData);
+
+        return redirect('product')->with('flash_message', 'Product updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Products  $products
-     * @return \Illuminate\Http\Response
+     * @param  int  $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy(Products $products)
+    public function destroy($id)
     {
-        //
+        Product::destroy($id);
+
+        return redirect('product')->with('flash_message', 'Product deleted!');
     }
 
-    public function display(Products $products)
+    public function display()
     {
-        $products = Products::all();
+        $products = Product::all();
         $categories = Category::all();
-        return view('products.display',
+        return view('product.display',
             ['products' => $products,
                 'categories' => $categories,
             ]);

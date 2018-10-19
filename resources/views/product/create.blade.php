@@ -7,9 +7,9 @@
             <div class="col-md-1"></div>
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">Create New Category</div>
+                    <div class="card-header">Create New Product</div>
                     <div class="card-body">
-                        <a href="{{ url('/category') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/product') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
 
@@ -21,10 +21,10 @@
                             </ul>
                         @endif
 
-                        <form method="POST" action="{{ url('/category') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                        <form method="POST" action="{{ url('/product') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
-                            @include ('category.form', ['formMode' => 'create'])
+                            @include ('product.form', ['formMode' => 'create'])
 
                         </form>
 
