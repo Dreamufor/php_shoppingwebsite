@@ -1,71 +1,77 @@
 @extends('layouts.app')
 
 @section('content')
-
-<div class="container-fluid">
-    <p class="indicateNav shadow-sm" style="margin:1% 7%;">  <a class="text-muted" href="{{ url('/')  }}"> Home</a> > Register</p>
-    <div class="row" style="margin:2% 6%;">
-        <div class="col-md-4">
-            <form method="POST" action="/auth/register">
-            <h4 class="text-center alert-light">Create a new account.</h4>
-            <hr />
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">@</span>
-                </div>
-                <input name="email" class="form-control" type="text" placeholder="Email" />
-
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
-                </div>
-                <input name="username" class="form-control" type="text" placeholder="User name" />
-
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-phone"></i></span>
-                </div>
-                <input name="phoneNumber" class="form-control" type="text" placeholder="Phone number" />
-
-            </div>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-home"></i></span>
-                </div>
-                <input name="address" class="form-control" placeholder="Address" />
-
-            </div>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-unlock-alt"></i></span>
-                </div>
-                <input name="password" class="form-control" placeholder="Password" type="password"/>
-
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-unlock-alt"></i></span>
-                </div>
-                <input name="confirmPassword" class="form-control" placeholder="Confirm password" type="password"/>
-
-            </div>
-            <div class="form-group text-center mb-3">
-                <button type="submit" class="btn btn-info" style="width:100%;">Create your account</button>
-            </div>
-            </form>
-        </div>
+<div class="container">
+    <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card align-item-center mt-3" style="padding:0.5%;">
-                <img src="{{ asset('images/main/somethinggood.png') }}" alt="join us" class="img-fluid"/>
+            <div class="card">
+                <div class="card-header">{{ __('Register') }}</div>
+
+                <div class="card-body">
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
+
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+
+                                @if ($errors->has('name'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+
+                                @if ($errors->has('email'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+
+                                @if ($errors->has('password'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Register') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
 @endsection

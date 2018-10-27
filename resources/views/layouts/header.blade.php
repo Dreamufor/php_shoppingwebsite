@@ -68,10 +68,10 @@
         <ul class="navbar-nav float-right">
             @if(!Auth::user())
             <li class="nav-item bg-light">
-                <a class="nav-link mr-1 ml-1 font-weight-bold" href="{{ url('auth/register')  }}"><i class="fas fa-envelope mr-1"></i>Register</a>
+                <a class="nav-link mr-1 ml-1 font-weight-bold" href="{{ url('register')  }}"><i class="fas fa-envelope mr-1"></i>Register</a>
             </li>
             <li class="nav-item bg-light">
-                <a class="nav-link mr-1 ml-1 font-weight-bold" href="{{ url('auth/login')  }}"><i class="fas fa-user mr-1"></i>Log in</a>
+                <a class="nav-link mr-1 ml-1 font-weight-bold" href="{{ url('login')  }}"><i class="fas fa-user mr-1"></i>Log in</a>
             </li>
             @else
                 <li class="nav-item ml-3 bg-light">
