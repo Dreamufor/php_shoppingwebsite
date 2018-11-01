@@ -44,14 +44,94 @@
                 </div>
             </li>
             <li class="nav-item ml-1">
-                <a class="nav-link" href="{{ url('/about') }}"><i class="fas fa-smile-wink mr-1"></i>About</a>
+                <a class="nav-link" href="{{ url('/home/about') }}"><i class="fas fa-smile-wink mr-1"></i>About</a>
             </li>
             <li class="nav-item ml-1">
-                <a class="nav-link" href="{{ url('/contact')  }}"><i class="fas fa-phone mr-1"></i>Contact us</a>
+                <a class="nav-link" href="{{ url('/home/contact')  }}"><i class="fas fa-phone mr-1"></i>Contact us</a>
             </li>
-            <li class="nav-item ml-1">
-                <a class="nav-link" href=""><i class="fas fa-phone mr-2"></i>Shopping cart</a>
+            <li class="nav-item ml-1 dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" style="cursor:pointer;" data-toggle="dropdown" onclick="check2()">
+                    @if(Session::has('cart')&&(Session::get('cart')->items!=null))
+                        <i class="fas fa-shopping-cart mr-2"> </i>
+                        Shopping Cart
+                        <span class="ml-1 badge badge-pill badge-secondary">{{ Session::has('cart') ? Session::get('cart')->totalQuantity : '' }}</span></a>
+
+
+
+                <div class="dropdown-menu bg-light" id="displayMenu" style="display:compact;">
+                    <h5 class="pt-2 pb-2 text-dark text-center">My Shopping List</h5>
+                    <div class="container-fluid" style="width:600px;height:auto;">
+                        <table class="table ml-1 mr-1 table-sm">
+                            <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Souvenir</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Total</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (Session::get('cart')->items as $item)
+                                <tr>
+                                    <th scope="row">
+                                        {{$item['item']->id}}
+                                    </th>
+                                    <td>
+                                        <img src="{{asset($item['item']->imgUrl)}}" class="card-img-top" style="width: 30px; height: auto;" alt="Souvenir Image">
+                                    </td>
+                                    <td><a class="alert-link alert-light">{{$item['name']}}</a></td>
+                                    <td>{{$item['category']}}</td>
+                                    <td>
+                                        <a onclick="localStorage.setItem('display','inline')" class="alert-link alert-light"><i class="fas fa-minus mr-1"></i></a>
+                                        {{$item['qty']}}
+                                        <a onclick="localStorage.setItem('display','inline')" class="alert-link alert-light"><i class="fas fa-plus ml-1"></i></a>
+                                    </td>
+                                    <td>{{$item['item']->price}}</td>
+                                    <td>{{($item['item']->price) * ($item['qty'])}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                        <div class="float-right">
+                            <table class="table table-borderless table-sm">
+                                <tbody>
+                                <tr>
+                                    <th scope="row">SubTotal:</th>
+                                    <td style="color:darkorange;" class="font-weight-bold">NZD$ {{(Session::get('cart')->totalPrice)-(Session::get('cart')->totalGST)}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">GST(15%):</th>
+                                    <td style="color:darkorange;" class="font-weight-bold">NZD$ {{Session::get('cart')->totalGST}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">GrandTotal:</th>
+                                    <td style="color:darkorange;" class="font-weight-bold">NZD$ {{Session::get('cart')->totalPrice}}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+
+                                        <a class="btn btn-outline-danger mr-4" >Clear Cart  <i class="fas fa-trash-alt"></i></a>
+                                        <a class="btn btn-outline-info" >Check Out  <i class="fas fa-step-forward"></i></a>
+
+
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+                @endif
+
+
             </li>
+
 
                 <li class="nav-item ml-1 dropdown">
                     <a class="nav-link dropdown-toggle" style="cursor:pointer;" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle mr-1"></i>Administrator</a>
@@ -88,9 +168,12 @@
                             </a>
                     </div>
                 </li>
-                <li class="nav-item bg-light alert-light">
-                    <button type="submit" class="btn btn-link navbar-btn navbar-link alert-link font-weight-bold">Log out</button>
-                </li>
+                <form action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <li class="nav-item bg-light alert-light">
+                        <button type="submit" class="btn btn-link navbar-btn navbar-link alert-link font-weight-bold">Log out</button>
+                    </li>
+                </form>
             @endif
         </ul>
     </div>

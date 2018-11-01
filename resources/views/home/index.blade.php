@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('title')
+    Quality Souvenir
+@endsection
+
+
 @section('content')
     <style>
         .image-list .image-cover {

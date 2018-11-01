@@ -14,10 +14,10 @@ class Category extends Model
     protected $table = 'categories';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**

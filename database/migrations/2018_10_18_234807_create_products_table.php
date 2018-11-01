@@ -15,12 +15,14 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->string('name')->nullable();
+            $table->string('name');
             $table->string('description')->nullable();
-            $table->integer('category_id')->nullable();
-            $table->integer('supplier_id')->nullable();
-            $table->decimal('price')->nullable();
-            $table->string('imgUrl')->nullable();
+            $table->integer('category_id');
+            $table->integer('supplier_id');
+            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('supplier_id')->references('id')->on('suppliers');
+            $table->decimal('price');
+            $table->string('imgUrl')->default('images/products/homeandliving/coaster3.jpg');
             });
     }
 

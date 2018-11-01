@@ -14,13 +14,15 @@
 Route::get('/', function () {
     return view('home/index');
 });
-
-Route::get('/index', 'HomeController@index');
-Route::get('/about', 'HomeController@about');
-Route::get('/contact', 'HomeController@contact');
+Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::get('/product/display', 'ProductController@display');
+Route::get('index', 'HomeController@index');
+Route::get('/home/about', 'HomeController@about');
+Route::get('/home/contact', 'HomeController@contact');
+
+
+Route::get('/product/display', 'ProductController@display') ->name('display');
 
 
 Route::resource('supplier', 'SupplierController');
@@ -29,4 +31,12 @@ Route::resource('category', 'CategoryController');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/add-to-cart/{id}',[
+    'uses' => 'ProductController@getAddToCart',
+    'as' => 'product.addToCart'
+]);
+
+Route::get('/shopping-cart/{id}',[
+    'uses' => 'ProductController@getCart',
+    'as' => 'product.shoppingCart'
+]);

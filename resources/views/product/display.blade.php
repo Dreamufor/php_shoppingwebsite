@@ -98,7 +98,7 @@
                                     </div>
                                     <br />
                                     <span class="font-weight-bold" style="color:orange">NZD$ {{$p->price}}</span>
-                                    <a class="alert-light alert-link float-right" title="Add to cart"><i class="fa fa-cart-plus" style="font-size:30px;"></i></a>
+                                    <a href="{{ route('product.addToCart', ['id' => $p -> id]) }}" class="alert-light alert-link float-right" title="Add to cart"><i class="fa fa-cart-plus" style="font-size:30px;"></i></a>
                                 </div>
                             </div>
                         </div>
