@@ -165,11 +165,13 @@ class ProductController extends Controller
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
         $cart->add($product, $product->id);
-        dd($request->session()->get('cart'));
+        //dd($request->session()->get('cart'));
         $request->session()->put('cart', $cart);
          return redirect()->route('display');
 
     }
+
+
 
 
 }

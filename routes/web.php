@@ -28,6 +28,7 @@ Route::get('/product/display', 'ProductController@display') ->name('display');
 Route::resource('supplier', 'SupplierController');
 Route::resource('product', 'ProductController');
 Route::resource('category', 'CategoryController');
+Route::resource('order', 'OrderController');
 
 Auth::routes();
 
@@ -36,7 +37,3 @@ Route::get('/add-to-cart/{id}',[
     'as' => 'product.addToCart'
 ]);
 
-Route::get('/shopping-cart/{id}',[
-    'uses' => 'ProductController@getCart',
-    'as' => 'product.shoppingCart'
-]);

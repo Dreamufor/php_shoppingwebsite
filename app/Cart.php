@@ -39,4 +39,12 @@ class Cart
 
    }
 
+   public function addItem(){
+
+   }
+
+   public function removeItem(){
+
+   }
+
 }

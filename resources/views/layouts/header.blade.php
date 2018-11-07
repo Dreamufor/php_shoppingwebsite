@@ -50,15 +50,12 @@
                 <a class="nav-link" href="{{ url('/home/contact')  }}"><i class="fas fa-phone mr-1"></i>Contact us</a>
             </li>
             <li class="nav-item ml-1 dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" style="cursor:pointer;" data-toggle="dropdown" onclick="check2()">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" style="cursor:pointer;" data-toggle="dropdown">
                     @if(Session::has('cart')&&(Session::get('cart')->items!=null))
                         <i class="fas fa-shopping-cart mr-2"> </i>
                         Shopping Cart
                         <span class="ml-1 badge badge-pill badge-secondary">{{ Session::has('cart') ? Session::get('cart')->totalQuantity : '' }}</span></a>
-
-
-
-                <div class="dropdown-menu bg-light" id="displayMenu" style="display:compact;">
+                <div class="dropdown-menu bg-light">
                     <h5 class="pt-2 pb-2 text-dark text-center">My Shopping List</h5>
                     <div class="container-fluid" style="width:600px;height:auto;">
                         <table class="table ml-1 mr-1 table-sm">
@@ -83,7 +80,7 @@
                                     <td>
                                         <img src="{{asset($item['item']->imgUrl)}}" class="card-img-top" style="width: 30px; height: auto;" alt="Souvenir Image">
                                     </td>
-                                    <td><a class="alert-link alert-light">{{$item['name']}}</a></td>
+                                    <td><a class="alert-link alert-light">{{$item['item']->name}}</a></td>
                                     <td>{{$item['category']}}</td>
                                     <td>
                                         <a onclick="localStorage.setItem('display','inline')" class="alert-link alert-light"><i class="fas fa-minus mr-1"></i></a>
@@ -115,9 +112,11 @@
                                     <td colspan="2">
 
                                         <a class="btn btn-outline-danger mr-4" >Clear Cart  <i class="fas fa-trash-alt"></i></a>
-                                        <a class="btn btn-outline-info" >Check Out  <i class="fas fa-step-forward"></i></a>
 
 
+                                        <a href="{{ url('/order/create') }}" class="btn btn-outline-info" title="Create Order">
+                                            Check Out<i class="fas fa-step-forward"></i>
+                                        </a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -125,21 +124,18 @@
 
                         </div>
                     </div>
-                </div>
-
-                @endif
-
-
+                        </div>
+                     @endif
             </li>
 
 
-                <li class="nav-item ml-1 dropdown">
+            <li class="nav-item ml-1 dropdown">
                     <a class="nav-link dropdown-toggle" style="cursor:pointer;" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle mr-1"></i>Administrator</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ url('product')  }}">Souvenir</a>
                         <a class="dropdown-item" href="{{ url('category')  }}">Category</a>
                         <a class="dropdown-item" href="{{ url('supplier')  }}">Supplier</a>
-                        <a class="dropdown-item">Orders</a>
+                        <a class="dropdown-item" href="{{ url('order')  }}">Orders</a>
                         <a class="dropdown-item">Members</a>
                     </div>
                 </li>
