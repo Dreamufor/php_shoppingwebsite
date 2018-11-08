@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Category;
 use App\Supplier;
 use App\Product;
+use App\Order;
 use Illuminate\Http\Request;
 use Session;
 
@@ -170,6 +171,37 @@ class ProductController extends Controller
          return redirect()->route('display');
 
     }
+
+    public function getAddItem($id){
+
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->addItem($id);
+
+        Session::put('cart', $cart);
+        return redirect()->back();
+
+    }
+
+    public function getRemoveItem($id){
+
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->removeItem($id);
+
+        Session::put('cart', $cart);
+        return redirect()->back();
+
+    }
+
+    public function getRemoveAll(){
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        Session::forget('cart', $cart);
+
+        return redirect()->back();
+    }
+
 
 
 

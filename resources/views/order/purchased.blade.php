@@ -7,9 +7,11 @@
 <div class="col-md-1"></div>
 
             <div class="col-md-10">
-                <div class="card">
-                   <p> Thanks for your</p>
-                </div>
+                <br>
+                   <h5 class="text-center">Thank you For Your Purchase!</h5>
+                <h5 class="text-center">Your order will be shipped as soon as possible.</h5>
+                <br><br><br><br><br>
+
             </div>
             <div class="col-md-1"></div>
         </div>

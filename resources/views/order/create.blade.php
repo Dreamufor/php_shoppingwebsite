@@ -36,9 +36,7 @@
                                     <td><a class="alert-link alert-light">{{$item['item']->name}}</a></td>
                                     <td>{{$item['category']}}</td>
                                     <td>
-                                        <a onclick="localStorage.setItem('display','inline')" class="alert-link alert-light"><i class="fas fa-minus mr-1"></i></a>
                                         {{$item['qty']}}
-                                        <a onclick="localStorage.setItem('display','inline')" class="alert-link alert-light"><i class="fas fa-plus ml-1"></i></a>
                                     </td>
                                     <td>{{$item['item']->price}}</td>
                                     <td>{{($item['item']->price) * ($item['qty'])}}</td>

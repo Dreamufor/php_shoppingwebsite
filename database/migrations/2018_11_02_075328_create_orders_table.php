@@ -15,12 +15,15 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->string('firstName')->nullable();
-            $table->string('lastName')->nullable();
-            $table->string('address')->nullable();
-            $table->string('status')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('orderDate')->nullable();
+            $table->string('firstName');
+            $table->string('lastName');
+            $table->string('address');
+            $table->string('status');
+            $table->string('phone');
+            $table->string('user_id');
+            $table->string('orderDate');
+
+            $table->text('cart');
             });
     }
 
@@ -31,6 +34,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('orders');
+        Schema::dropIfExists('orders');
     }
 }

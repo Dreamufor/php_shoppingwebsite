@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class OrderItem extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'orders';
+    protected $table = 'order_items';
 
     /**
     * The database primary key value.
@@ -25,10 +25,7 @@ class Order extends Model
      *
      * @var array
      */
-    protected $fillable = ['firstName', 'lastName', 'address', 'status', 'phone', 'orderDate','user_id'];
+    protected $fillable = ['unitPrice', 'quantity', 'product_id', 'order_id'];
 
-
-    public function user(){
-        return $this->belongsTo('App\User');
-    }
+    
 }

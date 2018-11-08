@@ -5,20 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Order;
-use App\Cart;
-use Auth;
-use Session;
 use App\OrderItem;
 use Illuminate\Http\Request;
 
-class OrderController extends Controller
+class OrderItemController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -30,18 +21,16 @@ class OrderController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $order = Order::where('firstName', 'LIKE', "%$keyword%")
-                ->orWhere('lastName', 'LIKE', "%$keyword%")
-                ->orWhere('address', 'LIKE', "%$keyword%")
-                ->orWhere('status', 'LIKE', "%$keyword%")
-                ->orWhere('phone', 'LIKE', "%$keyword%")
-                ->orWhere('orderDate', 'LIKE', "%$keyword%")
+            $orderitem = OrderItem::where('unitPrice', 'LIKE', "%$keyword%")
+                ->orWhere('quantity', 'LIKE', "%$keyword%")
+                ->orWhere('product_id', 'LIKE', "%$keyword%")
+                ->orWhere('order_id', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $order = Order::latest()->paginate($perPage);
+            $orderitem = OrderItem::latest()->paginate($perPage);
         }
 
-        return view('order.index', compact('order'));
+        return view('order-item.index', compact('orderitem'));
     }
 
     /**
@@ -49,14 +38,10 @@ class OrderController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create(Order $order)
+    public function create()
     {
-        return view('order.create', [
-            'order' => $order,
 
-        ]);
-
-        Session::forget('cart');
+        return view('order-item.create');
     }
 
     /**
@@ -68,20 +53,12 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $oldCart = Session::get('cart');
-        $cart = new Cart($oldCart);
-
-        $order = new Order();
-        $order->cart = serialize($cart);
-
-        Auth::user()->orders()->save($order);
-
-
+        
         $requestData = $request->all();
         
-        Order::create($requestData);
+        OrderItem::create($requestData);
 
-        return view('order.purchased');
+        return redirect('order-item')->with('flash_message', 'OrderItem added!');
     }
 
     /**
@@ -93,9 +70,9 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::findOrFail($id);
+        $orderitem = OrderItem::findOrFail($id);
 
-        return view('order.show', compact('order'));
+        return view('order-item.show', compact('orderitem'));
     }
 
     /**
@@ -107,9 +84,9 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $order = Order::findOrFail($id);
+        $orderitem = OrderItem::findOrFail($id);
 
-        return view('order.edit', compact('order'));
+        return view('order-item.edit', compact('orderitem'));
     }
 
     /**
@@ -125,10 +102,10 @@ class OrderController extends Controller
         
         $requestData = $request->all();
         
-        $order = Order::findOrFail($id);
-        $order->update($requestData);
+        $orderitem = OrderItem::findOrFail($id);
+        $orderitem->update($requestData);
 
-        return redirect('order')->with('flash_message', 'Order updated!');
+        return redirect('order-item')->with('flash_message', 'OrderItem updated!');
     }
 
     /**
@@ -140,8 +117,8 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        Order::destroy($id);
+        OrderItem::destroy($id);
 
-        return redirect('order')->with('flash_message', 'Order deleted!');
+        return redirect('order-item')->with('flash_message', 'OrderItem deleted!');
     }
 }

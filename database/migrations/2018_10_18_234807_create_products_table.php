@@ -16,11 +16,11 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('name');
-            $table->string('description')->nullable();
+            $table->string('description');
             $table->integer('category_id');
             $table->integer('supplier_id');
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreign('supplier_id')->references('id')->on('suppliers');
+//            $table->foreign('category_id')->references('id')->on('categories');
+//            $table->foreign('supplier_id')->references('id')->on('suppliers');
             $table->decimal('price');
             $table->string('imgUrl')->default('images/products/homeandliving/coaster3.jpg');
             });
@@ -33,6 +33,6 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('products');
+        Schema::dropIfExists('products');
     }
 }

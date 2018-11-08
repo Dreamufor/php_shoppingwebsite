@@ -30,6 +30,8 @@ Route::resource('product', 'ProductController');
 Route::resource('category', 'CategoryController');
 Route::resource('order', 'OrderController');
 
+Route::get('order/purchased ', 'ProductController@purchased');
+
 Auth::routes();
 
 Route::get('/add-to-cart/{id}',[
@@ -37,3 +39,16 @@ Route::get('/add-to-cart/{id}',[
     'as' => 'product.addToCart'
 ]);
 
+Route::get('/addItem/{id}',[
+    'uses' => 'ProductController@getAddItem',
+    'as' => 'product.addItem'
+]);
+Route::get('/removeItem/{id}',[
+    'uses' => 'ProductController@getRemoveItem',
+    'as' => 'product.removeItem'
+]);
+
+Route::get('/removeAll',[
+    'uses' => 'ProductController@getRemoveAll',
+    'as' => 'product.removeAll'
+]);

@@ -51,12 +51,13 @@
             </li>
             <li class="nav-item ml-1 dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" style="cursor:pointer;" data-toggle="dropdown">
-                    @if(Session::has('cart')&&(Session::get('cart')->items!=null))
                         <i class="fas fa-shopping-cart mr-2"> </i>
                         Shopping Cart
-                        <span class="ml-1 badge badge-pill badge-secondary">{{ Session::has('cart') ? Session::get('cart')->totalQuantity : '' }}</span></a>
+                        <span class="ml-1 badge badge-pill badge-secondary">{{ Session::has('cart') ? Session::get('cart')->totalQuantity : '0' }}</span></a>
                 <div class="dropdown-menu bg-light">
+
                     <h5 class="pt-2 pb-2 text-dark text-center">My Shopping List</h5>
+                    @if(Session::has('cart'))
                     <div class="container-fluid" style="width:600px;height:auto;">
                         <table class="table ml-1 mr-1 table-sm">
                             <thead>
@@ -83,9 +84,9 @@
                                     <td><a class="alert-link alert-light">{{$item['item']->name}}</a></td>
                                     <td>{{$item['category']}}</td>
                                     <td>
-                                        <a onclick="localStorage.setItem('display','inline')" class="alert-link alert-light"><i class="fas fa-minus mr-1"></i></a>
+                                        <a class="alert-link alert-light" href="{{route('product.removeItem',['id' => $item['item']['id']])}}"><i class="fas fa-minus mr-1"></i></a>
                                         {{$item['qty']}}
-                                        <a onclick="localStorage.setItem('display','inline')" class="alert-link alert-light"><i class="fas fa-plus ml-1"></i></a>
+                                        <a class="alert-link alert-light" href="{{route('product.addItem', ['id' => $item['item']['id']])}}"><i class="fas fa-plus ml-1"></i></a>
                                     </td>
                                     <td>{{$item['item']->price}}</td>
                                     <td>{{($item['item']->price) * ($item['qty'])}}</td>
@@ -109,15 +110,18 @@
                                     <td style="color:darkorange;" class="font-weight-bold">NZD$ {{Session::get('cart')->totalPrice}}</td>
                                 </tr>
                                 <tr>
+                                    @if(count(Session::get('cart')->items) > 0)
                                     <td colspan="2">
 
-                                        <a class="btn btn-outline-danger mr-4" >Clear Cart  <i class="fas fa-trash-alt"></i></a>
+
+                                        <a class="btn btn-outline-danger mr-4" href="{{ route('product.removeAll') }}">Clear Cart  <i class="fas fa-trash-alt"></i></a>
 
 
                                         <a href="{{ url('/order/create') }}" class="btn btn-outline-info" title="Create Order">
                                             Check Out<i class="fas fa-step-forward"></i>
                                         </a>
                                     </td>
+                                    @endif
                                 </tr>
                                 </tbody>
                             </table>
