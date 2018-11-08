@@ -18,12 +18,15 @@ class CreateOrdersTable extends Migration
             $table->string('firstName');
             $table->string('lastName');
             $table->string('address');
-            $table->string('status');
+            $table->string('status')->default('waiting');
             $table->string('phone');
             $table->string('user_id');
-            $table->string('orderDate');
+            $table->dateTime('orderDate');
+            $table->decimal('gst');
+            $table->decimal('subtotal');
+            $table->decimal('grandtotal');
 
-            $table->text('cart');
+
             });
     }
 

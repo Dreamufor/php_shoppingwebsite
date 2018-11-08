@@ -33,7 +33,22 @@
                                 @foreach($order as $item)
                                     <tr>
                                         <td>{{ $loop->iteration or $item->id }}</td>
-                                        <td>{{ $item->firstName }}</td><td>{{ $item->lastName }}</td><td>{{ $item->address }}</td><td>{{ $item->status }}</td><td>{{ $item->phone }}</td><td>{{ $item->orderDate }}</td>
+                                        <td>{{ $item->firstName }}</td><td>{{ $item->lastName }}</td><td>{{ $item->address }}</td>
+
+
+                                        <td>
+                                            {{ $item->status }}
+                                            @if($item->status == 'waiting')
+                                                <a href="{{ route('order.change',['id' => $item -> id]) }}">Shipped</a>
+
+                                            @endif
+
+                                        </td>
+
+
+
+
+                                        <td>{{ $item->phone }}</td><td>{{ $item->orderDate }}</td>
                                         <td>
                                             <a href="{{ url('/order/' . $item->id) }}" title="View Order"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             {{--<a href="{{ url('/order/' . $item->id . '/edit') }}" title="Edit Order"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>--}}

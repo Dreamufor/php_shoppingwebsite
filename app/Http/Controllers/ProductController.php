@@ -52,10 +52,19 @@ class ProductController extends Controller
             $product = Product::latest()->paginate($perPage);
         }
         $category = Category::all();
-        return view('product.display',compact('product'),
-            [
-                'category' => $category,
-            ]);
+
+        $souvenirs= new Product();
+
+        if($category != ''){
+            $souvenirs = $souvenirs ->where('category_id', $category);
+
+        }
+
+        $product = $souvenirs;
+
+        return view('product.display',compact('product','category'));
+
+
     }
 
     /**

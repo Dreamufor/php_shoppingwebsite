@@ -34,5 +34,9 @@ class Product extends Model
     public function supplier(){
         return $this->belongsTo('App\Supplier');
     }
+
+    public function orderItem() {
+        return $this->hasMany('App\OrderItem');
+    }
     
 }

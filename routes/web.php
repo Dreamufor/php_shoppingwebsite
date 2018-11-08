@@ -52,3 +52,8 @@ Route::get('/removeAll',[
     'uses' => 'ProductController@getRemoveAll',
     'as' => 'product.removeAll'
 ]);
+
+Route::get('/changeStatus/{id}',[
+    'uses' => 'OrderController@changeStatus',
+    'as' => 'order.change'
+]);

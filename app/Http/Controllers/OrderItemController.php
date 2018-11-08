@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\OrderItem;
+use App\Product;
 use Illuminate\Http\Request;
 
 class OrderItemController extends Controller
@@ -121,4 +122,6 @@ class OrderItemController extends Controller
 
         return redirect('order-item')->with('flash_message', 'OrderItem deleted!');
     }
+
+
 }

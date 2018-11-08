@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Order;
 use App\Cart;
 use Auth;
+use Carbon\Carbon;
 use Session;
 use App\OrderItem;
 use Illuminate\Http\Request;
@@ -55,8 +56,6 @@ class OrderController extends Controller
             'order' => $order,
 
         ]);
-
-        Session::forget('cart');
     }
 
     /**
@@ -68,20 +67,50 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $oldCart = Session::get('cart');
-        $cart = new Cart($oldCart);
 
-        $order = new Order();
-        $order->cart = serialize($cart);
+//        $oldCart = Session::get('cart');
+//        $cart = new Cart($oldCart);
+//
+//        $order = new Order();
+//        $order->cart = serialize($cart);
+//
+//        Auth::user()->orders()->save($order);
+//
+//
+//        $requestData = $request->all();
+//
+//        Order::create($requestData);
+//
+//        return view('order.purchased');
 
-        Auth::user()->orders()->save($order);
+        $order = new Order([
+              'firstName' => $_POST['firstName'],
+              'lastName' => $_POST['lastName'],
+              'address' => $_POST['address'],
+              'phone' => $_POST['phone'],
+              //'status' => $_POST['status'],
+              'orderDate' =>date_format(Carbon::now(), 'Y-m-d H:m:s'),
+              'subtotal' => (Session::get('cart')->totalPrice-Session::get('cart')->totalGST),
+              'gst' => Session::get('cart')->totalGST,
+              'grandtotal' => Session::get('cart')->totalPrice,
+              'user_id' => Auth::user()->id,
+        ]);
+        $order->save();
 
+        foreach (Session::get('cart')->items as $item) {
+            $orderItem = new OrderItem([
+                'order_id' => $order->id
+                , 'product_id' => $item['item']->id
+                , 'unitPrice' => $item['item']->price
+                , 'quantity' => $item['qty']
+            ]);
+            $orderItem->save();
+        }
 
-        $requestData = $request->all();
-        
-        Order::create($requestData);
+        Session::forget('cart');
 
         return view('order.purchased');
+
     }
 
     /**
@@ -95,7 +124,11 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
 
-        return view('order.show', compact('order'));
+        $orderItem = OrderItem::all();
+
+        return view('order.show', compact('order'),[
+            'orderItem' => $orderItem,
+        ]);
     }
 
     /**
@@ -144,4 +177,16 @@ class OrderController extends Controller
 
         return redirect('order')->with('flash_message', 'Order deleted!');
     }
+
+
+    public function changeStatus($id){
+        $order = Order::findOrFail($id);
+
+        $order -> status = 'shipped';
+
+        $order -> save();
+
+        return redirect()->back();
+    }
+
 }

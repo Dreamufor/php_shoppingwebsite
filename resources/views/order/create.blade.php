@@ -98,11 +98,6 @@
                                 <input class="form-control" name="address" type="text" id="address" value="{{ $order->address }}" >
                                 {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
                             </div>
-                            <div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
-                                <label for="status" class="control-label">{{ 'Status' }}</label>
-                                <input class="form-control" name="status" type="text" id="status" value="{{ $order->status }}" >
-                                {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
-                            </div>
                             <div class="form-group {{ $errors->has('phone') ? 'has-error' : ''}}">
                                 <label for="phone" class="control-label">{{ 'Phone' }}</label>
                                 <input class="form-control" name="phone" type="text" id="phone" value="{{ $order->phone }}" >
