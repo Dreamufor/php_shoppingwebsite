@@ -85,7 +85,7 @@
                 <div class="card rotateRight">
                     <img class="card-img-top" src="{{ asset('images/products/homeandliving/ornament.jpg') }}">
                     <div class="image-cover">
-                        <a href="{{ asset('') }}" class="btn btn-outline-light">Buy now</a>
+                        <a href="{{ url('/product/45') }}" class="btn btn-outline-light">Buy now</a>
                     </div>
                 </div>
             </div>
@@ -93,7 +93,7 @@
                 <div class="card rotateLeft">
                     <img class="card-img-top" src="{{ asset('images/products/homeandliving/coaster3.jpg') }}">
                     <div class="image-cover">
-                        <a href="{{ asset('') }}" class="btn btn-outline-light">Buy now</a>
+                        <a href="{{ url('/product/42') }}" class="btn btn-outline-light">Buy now</a>
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                 <div class="card rotateRight">
                     <img class="card-img-top" src="{{ asset('images/products/homeandliving/wall-art1.jpg') }}">
                     <div class="image-cover">
-                        <a href="{{ asset('') }}" class="btn btn-outline-light">Buy now</a>
+                        <a href="{{ url('/product/48') }}" class="btn btn-outline-light">Buy now</a>
                     </div>
                 </div>
             </div>
@@ -109,7 +109,7 @@
                 <div class="card rotateLeft">
                     <img class="card-img-top" src="{{ asset('images/products/homeandliving/coaster2.jpg') }}">
                     <div class="image-cover">
-                        <a href="{{ asset('') }}" class="btn btn-outline-light">Buy now</a>
+                        <a href="{{ url('/product/41') }}" class="btn btn-outline-light">Buy now</a>
                     </div>
                 </div>
             </div>

@@ -20,28 +20,8 @@
             <li class="nav-item ml-1">
                 <a class="nav-link" href="{{ url('/')  }}"><i class="fas fa-home mr-1"></i>Home</a>
             </li>
-            <li class="nav-item ml-1 dropdown">
-                <a class="nav-link dropdown-toggle" style="cursor:pointer;" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-gift mr-1"></i>Products</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a href="{{ url('/product/display')  }}" class="dropdown-item">
-                        All Souvenirs
-                    </a>
-                    <a class="dropdown-item">
-                        Maori Gifts
-                    </a>
-                    <a class="dropdown-item">
-                        Mugs
-                    </a>
-                    <a class="dropdown-item">
-                        T-Shirts
-                    </a>
-                    <a class="dropdown-item">
-                        Home & Living
-                    </a>
-                    <a class="dropdown-item">
-                        More...
-                    </a>
-                </div>
+            <li class="nav-item ml-1">
+                <a class="nav-link" href="{{ url('/product/display') }}"><i class="fas fa-gift mr-1"></i>Product</a>
             </li>
             <li class="nav-item ml-1">
                 <a class="nav-link" href="{{ url('/home/about') }}"><i class="fas fa-smile-wink mr-1"></i>About</a>
@@ -49,6 +29,7 @@
             <li class="nav-item ml-1">
                 <a class="nav-link" href="{{ url('/home/contact')  }}"><i class="fas fa-phone mr-1"></i>Contact us</a>
             </li>
+            @if(Auth::user() === null || Auth::user()->role != 'admin' )
             <li class="nav-item ml-1 dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" style="cursor:pointer;" data-toggle="dropdown">
                         <i class="fas fa-shopping-cart mr-2"> </i>
@@ -131,8 +112,9 @@
                         </div>
                      @endif
             </li>
+            @endif
 
-
+            @if(Auth::user()!==null&& Auth::user()->role == 'admin' )
             <li class="nav-item ml-1 dropdown">
                     <a class="nav-link dropdown-toggle" style="cursor:pointer;" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle mr-1"></i>Administrator</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -140,10 +122,10 @@
                         <a class="dropdown-item" href="{{ url('category')  }}">Category</a>
                         <a class="dropdown-item" href="{{ url('supplier')  }}">Supplier</a>
                         <a class="dropdown-item" href="{{ url('order')  }}">Orders</a>
-                        <a class="dropdown-item">Members</a>
+                        <a class="dropdown-item" href="{{ url('user')  }}">Members</a>
                     </div>
                 </li>
-
+            @endif
         </ul>
         <ul class="navbar-nav float-right">
             @if(!Auth::user())
@@ -160,12 +142,8 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user mr-2"></i>My Account</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" title="Manage">
-                            Profile
-                        </a>
-                            <a class="dropdown-item" >
-                                Orders
-                            </a>
+                        <a href="{{ url('/user/'.Auth::user()->id) }}" title="View User" class="dropdown-item" title="Manage"> Profile</a>
+                        <a class="dropdown-item" href="{{ url('order')  }}">Orders</a>
                     </div>
                 </li>
                 <form action="{{ route('logout') }}" method="post">

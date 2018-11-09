@@ -6,26 +6,26 @@
                 <h5>About us</h5>
                 <hr />
                 <ul class="alert-light list-unstyled bg-light">
-                    <li><a class="alert-link font-weight-normal">About us</a></li>
+                    <li><a class="alert-link font-weight-normal" href="{{ url('/home/about') }}">About us</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
                 <h5>Products</h5>
                 <hr />
                 <ul class="alert-light list-unstyled bg-light">
-                    <li><a class="alert-link font-weight-normal">Maori Gifts</a></li>
-                    <li><a class="alert-link font-weight-normal">Mugs</a></li>
-                    <li><a class="alert-link font-weight-normal">T-Shirts</a></li>
-                    <li><a class="alert-link font-weight-normal">Home & Living</a></li>
+                    <li><a class="alert-link font-weight-normal" href="{{ url('/product/display/1') }}">Maori Gifts</a></li>
+                    <li><a class="alert-link font-weight-normal" href="{{ url('/product/display/2') }}">Mugs</a></li>
+                    <li><a class="alert-link font-weight-normal" href="{{ url('/product/display/3') }}">T-Shirts</a></li>
+                    <li><a class="alert-link font-weight-normal" href="{{ url('/product/display/4') }}">Home & Living</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
                 <h5>Services</h5>
                 <hr />
                 <ul class="alert-light list-unstyled bg-light">
-                    <li><a class="alert-link font-weight-normal">Shipping</a></li>
-                    <li><a class="alert-link font-weight-normal">Payment</a></li>
-                    <li><a class="alert-link font-weight-normal">Contact us</a></li>
+                    <li><a class="alert-link font-weight-normal" href="{{ url('/home/contact')  }}">Shipping</a></li>
+                    <li><a class="alert-link font-weight-normal" href="{{ url('/home/contact')  }}">Payment</a></li>
+                    <li><a class="alert-link font-weight-normal" href="{{ url('/home/contact')  }}">Contact us</a></li>
                 </ul>
             </div>
             <div class="col-md-3 text-center">

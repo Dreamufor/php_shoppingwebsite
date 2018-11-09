@@ -20,7 +20,8 @@ class CreateOrdersTable extends Migration
             $table->string('address');
             $table->string('status')->default('waiting');
             $table->string('phone');
-            $table->string('user_id');
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->dateTime('orderDate');
             $table->decimal('gst');
             $table->decimal('subtotal');

@@ -30,6 +30,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+
                                 @foreach($order as $item)
                                     <tr>
                                         <td>{{ $loop->iteration or $item->id }}</td>
@@ -37,12 +38,16 @@
 
 
                                         <td>
-                                            {{ $item->status }}
-                                            @if($item->status == 'waiting')
-                                                <a href="{{ route('order.change',['id' => $item -> id]) }}">Shipped</a>
+                                            @if(Auth::user()!==null&& Auth::user()->role == 'admin' )
 
+                                                {{ $item->status }}
+                                                @if($item->status == 'waiting')
+                                                    <a href="{{ route('order.change',['id' => $item -> id]) }}">Shipped</a>
+
+                                                @endif
+                                            @else
+                                                {{ $item->status }}
                                             @endif
-
                                         </td>
 
 

@@ -35,11 +35,11 @@
                 <div class="card mt-5">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item alert-light">
-                                <a class="alert-light font-weight-normal bg-transparent">All Souvenirs</a>
+                                <a class="alert-light font-weight-normal bg-transparent" href="{{ url('/product/display') }}">All Souvenirs</a>
                             </li>
                             @foreach ($category as $c)
                                 <li class="list-group-item alert-light">
-                                    <a class="alert-link font-weight-normal bg-transparent">
+                                    <a class="alert-link font-weight-normal bg-transparent" href="{{ route('display', ['id' => $c -> id]) }}">
                                         {{$c->name}}
                                     </a>
                                 </li>
@@ -54,11 +54,11 @@
                     <div class="card-body">
                         <form method="get">
                             <div class="input-group w-auto">
-                                <input type="number" class="form-control" placeholder="$0" name="minPrice"/>
+                                <input type="number" class="form-control" placeholder="$0" value="{{old('minPrice')}}" name="minPrice"/>
                                 <div class="input-group-prepend text-center">
                                     <span class="input-group-text">~</span>
                                 </div>
-                                <input type="number" class="form-control" placeholder="$0" name="maxPrice"/>
+                                <input type="number" class="form-control" placeholder="$0" value="{{old('maxPrice')}}"  name="maxPrice"/>
                             </div>
                             <button type="submit" class="btn btn-outline-secondary mt-3 mr-4 ml-4 w-75"><i class="fas fa-search"></i></button>
                         </form>
@@ -70,19 +70,18 @@
                 <div class="float-right mt-1">
                     <form method="get">
                         <div class="input-group mb-2 alert-light">
-                            <input type="text" class="form-control" placeholder="Search by name" name="searchString">
+                            <input type="text" class="form-control" placeholder="Search by name" name="search">
                             <div class="input-group-append">
-                                <button class="btn btn-secondary" type="submit" value="Search"><i class="fas fa-search"></i></button>
+                                <button class="btn btn-secondary" type="submit" value="search"><i class="fas fa-search"></i></button>
                             </div>
-                            <a class="alert-light alert-link font-weight-normal ml-4 mt-1">All Products</a>
-                            <a class="alert-light alert-link font-weight-normal ml-4 mt-1">
-                            Name
-                            <i class="fas fa-sort"></i>
-                            </a>
-                            <a class="alert-light alert-link font-weight-normal ml-4 mt-1">
-                            Price
-                            <i class="fas fa-sort"></i>
-                            </a>
+                            {{--<a class="alert-light alert-link font-weight-normal ml-4 mt-1">--}}
+                            {{--Name--}}
+                            {{--<i class="fas fa-sort"></i>--}}
+                            {{--</a>--}}
+                            {{--<a class="alert-light alert-link font-weight-normal ml-4 mt-1">--}}
+                            {{--Price--}}
+                            {{--<i class="fas fa-sort"></i>--}}
+                            {{--</a>--}}
                         </div>
                     </form>
                 </div><br />
@@ -94,7 +93,7 @@
                                 <img class="card-img-top img-fluid" style="width: 100%; height: auto;" src="{{ asset($p->imgUrl)}}" alt="Souvenir Image">
                                 <div class="card-body">
                                     <div>
-                                        <a class="alert-link alert-light" href="{{ url(' ' . $p->id) }}">{{$p->name}}</a>
+                                        <a class="alert-link alert-light" href="{{ url('/product/' . $p->id) }}">{{$p->name}}</a>
                                     </div>
                                     <br />
                                     <span class="font-weight-bold" style="color:orange">NZD$ {{$p->price}}</span>

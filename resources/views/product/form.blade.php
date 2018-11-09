@@ -39,7 +39,8 @@
 </div>
 <div class="form-group {{ $errors->has('imgUrl') ? 'has-error' : ''}}">
     <label for="imgUrl" class="control-label">{{ 'Imgurl' }}</label>
-    <input class="form-control" name="imgUrl" type="text" id="imgUrl" value="{{ $product->imgUrl}}" >
+    {{--<input class="form-control" name="imgUrl" type="text" id="imgUrl" value="{{ $product->imgUrl}}" >--}}
+    <input type="file" name="_files" id="_files">
     {!! $errors->first('imgUrl', '<p class="help-block">:message</p>') !!}
 </div>
 

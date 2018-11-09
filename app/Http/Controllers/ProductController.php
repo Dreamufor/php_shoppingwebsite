@@ -10,6 +10,9 @@ use App\Supplier;
 use App\Product;
 use App\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Session;
 
 class ProductController extends Controller
@@ -42,25 +45,56 @@ class ProductController extends Controller
     public function display(Request $request)
     {
         $keyword = $request->get('search');
+
         $perPage = 8;
 
+        if(Route::current()-> parameter('id') != null){
+
+            $product = Product::where('category_id', '=', Route::current()-> parameter('id'));
+        }
+        else{
+            $product = Product::orderby('id');
+        }
+
+//        if (!empty($keyword)) {
+//            $souvenir = new Collection();
+//
+//            foreach ($product as $p){
+//                if(stripos($p->name,$keyword)){
+//                    $souvenir -> push($p);
+//                }
+//            }
+//
+//            $product = $souvenir;
+////            dd($product);
+//        }
+//             $product=$product ->latest()->paginate($perPage);
+        $min = $request->get('minPrice')?:0;
+        $max = $request->get('maxPrice')?:999999999;
+
+//        if(!empty($min)){
+//            $product = $product -> where('price','>',$min);
+//        }
+//        if(!empty($max)){
+//            $product = $product -> where('price','<','88');
+//        }
+        $product = $product -> where('price','>',$min);
+        $product = $product -> where('price','<',$max);
+
         if (!empty($keyword)) {
-            $product = Product::where('name', 'LIKE', "%$keyword%")
+            $product = $product-> where('name', 'LIKE', "%$keyword%")
                 ->orWhere('description', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $product = Product::latest()->paginate($perPage);
+            $product = $product-> latest()->paginate($perPage);
         }
+
         $category = Category::all();
 
-        $souvenirs= new Product();
 
-        if($category != ''){
-            $souvenirs = $souvenirs ->where('category_id', $category);
 
-        }
 
-        $product = $souvenirs;
+
 
         return view('product.display',compact('product','category'));
 
@@ -95,10 +129,30 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $requestData = $request->all();
-        
-        Product::create($requestData);
+       if($_FILES['_files']['error'] > 0){
+           echo('');
+       }
+       elseif (isset($_FILES['_files'])){
+           move_uploaded_file($_FILES['_files']['tmp_name'],'images/products/'.$_FILES['_files']['name']);
+       }
+
+
+       $product = new Product([
+           'name' => $_POST['name'],
+           'description' => $_POST['description'],
+           'supplier_id' => $_POST['supplier_id'],
+           'category_id' => $_POST['category_id'],
+           'price' => $_POST['price'],
+          'imgUrl' => 'images/products/'.$_FILES['_files']['name'],
+       ]);
+
+
+       $product->save();
+
+//
+//        $requestData = $request->all();
+//
+//        Product::create($requestData);
 
         return redirect('product')->with('flash_message', 'Product added!');
     }
@@ -112,7 +166,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::findOrFail($id);
+
+$product= Product::findOrFail($id);
 
         return view('product.show', compact('product'));
     }

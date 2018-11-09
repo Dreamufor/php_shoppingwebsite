@@ -17,10 +17,10 @@ class CreateOrderItemsTable extends Migration
             $table->timestamps();
             $table->decimal('unitPrice');
             $table->integer('quantity');
-            $table->integer('product_id');
-            $table->integer('order_id');
-//            $table->foreign('product_id')->references('id')->on('products');
-//            $table->foreign('order_id')->references('id')->on('orders');
+            $table->unsignedInteger('product_id');
+            $table->unsignedInteger('order_id');
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             });
     }
 

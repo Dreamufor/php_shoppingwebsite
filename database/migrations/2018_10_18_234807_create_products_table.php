@@ -17,10 +17,11 @@ class CreateProductsTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('description');
-            $table->integer('category_id');
-            $table->integer('supplier_id');
-//            $table->foreign('category_id')->references('id')->on('categories');
-//            $table->foreign('supplier_id')->references('id')->on('suppliers');
+            $table->unsignedInteger('category_id');
+            $table->unsignedInteger('supplier_id');
+
+            $table->foreign('supplier_id')->references('id')->on('suppliers');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->decimal('price');
             $table->string('imgUrl')->default('images/products/homeandliving/coaster3.jpg');
             });

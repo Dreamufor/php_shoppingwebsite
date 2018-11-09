@@ -22,17 +22,23 @@ Route::get('/home/about', 'HomeController@about');
 Route::get('/home/contact', 'HomeController@contact');
 
 
-Route::get('/product/display', 'ProductController@display') ->name('display');
+Route::get('/product/display/{id?}', 'ProductController@display') ->name('display');
 
 
 Route::resource('supplier', 'SupplierController');
 Route::resource('product', 'ProductController');
 Route::resource('category', 'CategoryController');
 Route::resource('order', 'OrderController');
+Route::resource('user', 'UserController');
 
 Route::get('order/purchased ', 'ProductController@purchased');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
+
+Route::get('profile', function () {
+    // Only verified users may enter...
+})->middleware('verified');
+
 
 Route::get('/add-to-cart/{id}',[
     'uses' => 'ProductController@getAddToCart',
@@ -56,4 +62,9 @@ Route::get('/removeAll',[
 Route::get('/changeStatus/{id}',[
     'uses' => 'OrderController@changeStatus',
     'as' => 'order.change'
+]);
+
+Route::get('/change/{id}',[
+    'uses' => 'UserController@changeStatus',
+    'as' => 'user.change'
 ]);

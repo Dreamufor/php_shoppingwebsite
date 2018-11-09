@@ -9,6 +9,7 @@ use App\Order;
 use App\Cart;
 use Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Session;
 use App\OrderItem;
 use Illuminate\Http\Request;
@@ -96,6 +97,9 @@ class OrderController extends Controller
               'user_id' => Auth::user()->id,
         ]);
         $order->save();
+
+
+        Log::info(Auth::user()->email.' Create the order');
 
         foreach (Session::get('cart')->items as $item) {
             $orderItem = new OrderItem([

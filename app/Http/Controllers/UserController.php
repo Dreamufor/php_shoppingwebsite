@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -17,7 +18,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-
+        $user = User::all();
+//        dd($user);
         return view('user.index', compact('user'));
     }
 
@@ -75,7 +77,13 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-
+//
+//        if(Auth::user()->role == 'member'){
+//            return view('user.show', compact('user'));
+//        }
+//        else{
+//
+//        }
         return view('user.edit', compact('user'));
     }
 
@@ -95,7 +103,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->update($requestData);
 
-        return redirect('user')->with('flash_message', 'User updated!');
+        return view('user.show',compact('user'));
     }
 
     /**
@@ -110,5 +118,22 @@ class UserController extends Controller
         User::destroy($id);
 
         return redirect('user')->with('flash_message', 'User deleted!');
+    }
+
+
+    public function changeStatus($id){
+        $user = User::findOrFail($id);
+
+        if($user -> enabled == 'Yes')
+        {
+            $user -> enabled = 'No';
+        }
+        else{
+            $user -> enabled = 'Yes';
+        }
+
+        $user -> save();
+
+        return redirect()->back();
     }
 }
