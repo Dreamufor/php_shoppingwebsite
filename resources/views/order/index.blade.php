@@ -33,7 +33,7 @@
                                 @if(Auth::user()!==null&& Auth::user()->role == 'admin' )
                                     @foreach($order as $item)
                                         <tr>
-                                            <td>{{ $loop->iteration or $item->id }}</td>
+                                            <td>{{ $item->id }}</td>
                                             <td>{{ $item->firstName }}</td><td>{{ $item->lastName }}</td><td>{{ $item->address }}</td>
                                             <td>
                                                     {{ $item->status }}
@@ -59,7 +59,7 @@
                                 @else
                                     @foreach(Auth::user()->orders as $item)
                                         <tr>
-                                            <td>{{ $loop->iteration or $item->id }}</td>
+                                            <td>{{ $item->id }}</td>
                                             <td>{{ $item->firstName }}</td><td>{{ $item->lastName }}</td><td>{{ $item->address }}</td>
                                             <td>
                                                 {{ $item->status }}

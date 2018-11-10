@@ -237,7 +237,16 @@ $product= Product::findOrFail($id);
      */
     public function destroy($id)
     {
-        Product::destroy($id);
+        try{
+
+            Product::destroy($id);
+        }
+
+        catch(\Exception $exception){
+            //dd($exception);
+            $errormsg = 'Cannot delete a category with products in order, wrong code ' . $exception->getCode();
+            return Response::json(['errormsg'=>$errormsg]);
+        }
 
         return redirect('product')->with('flash_message', 'Product deleted!');
     }
@@ -252,7 +261,7 @@ $product= Product::findOrFail($id);
         $cart->add($product, $product->id);
         //dd($request->session()->get('cart'));
         $request->session()->put('cart', $cart);
-         return redirect()->route('display');
+        return redirect()->back();
 
     }
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
 class SupplierController extends Controller
@@ -141,7 +142,15 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
-        Supplier::destroy($id);
+        try{
+            Supplier::destroy($id);
+        }
+
+        catch(\Exception $exception){
+        //dd($exception);
+        $errormsg = 'Cannot delete a supplier with products in order, wrong code ' . $exception->getCode();
+        return Response::json(['errormsg'=>$errormsg]);
+    }
 
         return redirect('supplier')->with('flash_message', 'Supplier deleted!');
     }

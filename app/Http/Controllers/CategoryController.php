@@ -6,7 +6,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Category;
+use http\Exception;
+use http\Exception\InvalidArgumentException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
@@ -124,8 +127,15 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::destroy($id);
-
+        try{
+            Category::destroy($id);
+        }
+        catch(\Exception $exception){
+            //dd($exception);
+            $errormsg = 'Cannot delete a category with products in order, wrong code ' . $exception->getCode();
+//            return redirect('category')->with('flash_message', $errormsg);
+            return Response::json(['errormsg'=>$errormsg]);
+        }
         return redirect('category')->with('flash_message', 'Category deleted!');
     }
 }

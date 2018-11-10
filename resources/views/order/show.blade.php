@@ -47,7 +47,7 @@
 
                                     </tr>
                                     </thead>
-                                    @foreach( $orderItem as $item)
+                                    @foreach( $order -> orderItems as $item)
                                     <tbody>
                                         <tr>
                                             <th scope="row">
@@ -67,6 +67,22 @@
                                     </tbody>
                                     @endforeach
                                 </table>
+                            <table class="table table-borderless table-sm">
+                                <tbody>
+                                <tr>
+                                    <th scope="row">SubTotal:</th>
+                                    <td style="color:darkorange;" class="font-weight-bold">NZD$ {{ $order->subtotal }} </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">GST(15%):</th>
+                                    <td style="color:darkorange;" class="font-weight-bold">NZD$ {{ $order->gst }} </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">GrandTotal:</th>
+                                    <td style="color:darkorange;" class="font-weight-bold">NZD$ {{ $order->grandtotal }} </td>
+                                </tr>
+                                </tbody>
+                            </table>
 
 
 

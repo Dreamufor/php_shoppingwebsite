@@ -29,7 +29,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+                                <input id="email" onchange="validate_email(this)" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
@@ -103,4 +103,19 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    function validate_email(field)
+    {
+        with (field)
+        {
+            apos=value.indexOf("@")
+            dotpos=value.lastIndexOf(".")
+            if (apos<1||dotpos-apos<2)
+            {alert("Wrong Email Format");return false}
+            else {return true}
+        }
+    }
+</script>
 @endsection
