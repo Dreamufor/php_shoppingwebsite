@@ -148,7 +148,7 @@ class SupplierController extends Controller
 
         catch(\Exception $exception){
         //dd($exception);
-        $errormsg = 'Cannot delete a supplier with products in order, wrong code ' . $exception->getCode();
+        $errormsg = 'Cannot delete a supplier with products in it, wrong code ' . $exception->getCode();
         return Response::json(['errormsg'=>$errormsg]);
     }
 

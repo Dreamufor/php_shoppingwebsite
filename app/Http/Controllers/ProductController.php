@@ -12,6 +12,7 @@ use App\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
 use Session;
@@ -244,7 +245,7 @@ $product= Product::findOrFail($id);
 
         catch(\Exception $exception){
             //dd($exception);
-            $errormsg = 'Cannot delete a category with products in order, wrong code ' . $exception->getCode();
+            $errormsg = 'Cannot delete a product in order, wrong code ' . $exception->getCode();
             return Response::json(['errormsg'=>$errormsg]);
         }
 
