@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\User;
+
 
 class LoginController extends Controller
 {
@@ -35,11 +39,37 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+//        $this->middleware('enabled');
     }
 
     public function getLogin()
     {
         return view('auth.login');
     }
+
+
+    protected function attemptLogin(Request $request)
+    {
+        $request->merge([
+            'enabled' => 'Yes'
+        ]);
+        return $this->guard()->attempt(
+            $this->credentials($request), $request->filled('remember')
+        );
+    }
+
+    protected function credentials(Request $request)
+    {
+        return $request->only($this->username(), 'password', 'enabled');
+    }
+
+    /**
+     *
+     */
+
+
+
+
+
 
 }

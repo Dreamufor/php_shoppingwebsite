@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SupplierController extends Controller
 {
@@ -15,6 +16,11 @@ class SupplierController extends Controller
      *
      * @return \Illuminate\View\View
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(Request $request)
     {
         $keyword = $request->get('search');
@@ -31,6 +37,18 @@ class SupplierController extends Controller
 
         return view('supplier.index', compact('supplier'));
     }
+
+//    protected function validator(array $data)
+//    {
+//        return Validator::make($data, [
+//            'name' => 'required|string|max:20',
+//            'email' => 'required|string|email|max:30|unique:suppliers',
+//            'phoneNumber' => 'required|string|min:6|max:8',
+//
+//        ]);
+//    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -52,10 +70,15 @@ class SupplierController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
+
     public function store(Request $request)
     {
-        
-        $requestData = $request->all();
+        $requestData = $request->validate([
+            'name' => 'required|string|max:20',
+            'email' => 'required|string|email|max:30|unique:suppliers',
+            'phoneNumber' => 'required|string|min:6|max:8',
+        ]);
+
         
         Supplier::create($requestData);
 

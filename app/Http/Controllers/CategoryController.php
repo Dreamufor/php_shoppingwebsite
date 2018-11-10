@@ -7,9 +7,14 @@ use App\Http\Controllers\Controller;
 
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -52,9 +57,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $requestData = $request->all();
-        
+        $requestData = $request->validate([
+            'name' => 'required|max:20',
+            'description' => 'required|max:50',
+        ]);
+
         Category::create($requestData);
 
         return redirect('category')->with('flash_message', 'Category added!');

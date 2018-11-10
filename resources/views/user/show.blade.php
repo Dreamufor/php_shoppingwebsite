@@ -4,14 +4,14 @@
     <div class="container-fluid">
         <p class="indicateNav shadow-sm" style="margin:1% 7%;"><a class="text-muted" href="{{ url('/')  }}"> Home</a> > User</p>
         <div class="row">
-<div class="col-md-1"></div>
+<div class="col-md-3"></div>
 
-            <div class="col-md-10">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">User {{ $user->id }}</div>
                     <div class="card-body">
 
-                        <a href="{{ url('/user') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        {{--<a href="{{ url('/user') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>--}}
                         <a href="{{ url('/user/' . $user->id . '/edit') }}" title="Edit User"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
 
                         {{--<form method="POST" action="{{ url('user' . '/' . $user->id) }}" accept-charset="UTF-8" style="display:inline">--}}
@@ -36,7 +36,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-1"></div>
+            <div class="col-md-3"></div>
         </div>
     </div>
 @endsection

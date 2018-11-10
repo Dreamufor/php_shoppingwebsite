@@ -30,42 +30,55 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                @if(Auth::user()!==null&& Auth::user()->role == 'admin' )
+                                    @foreach($order as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration or $item->id }}</td>
+                                            <td>{{ $item->firstName }}</td><td>{{ $item->lastName }}</td><td>{{ $item->address }}</td>
+                                            <td>
+                                                    {{ $item->status }}
+                                                    @if($item->status == 'waiting')
+                                                        <a href="{{ route('order.change',['id' => $item -> id]) }}">Shipped</a>
 
-                                @foreach($order as $item)
-                                    <tr>
-                                        <td>{{ $loop->iteration or $item->id }}</td>
-                                        <td>{{ $item->firstName }}</td><td>{{ $item->lastName }}</td><td>{{ $item->address }}</td>
+                                                    @endif
+                                            </td>
 
+                                            <td>{{ $item->phone }}</td><td>{{ $item->orderDate }}</td>
+                                            <td>
+                                                <a href="{{ url('/order/' . $item->id) }}" title="View Order"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                                {{--<a href="{{ url('/order/' . $item->id . '/edit') }}" title="Edit Order"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>--}}
 
-                                        <td>
-                                            @if(Auth::user()!==null&& Auth::user()->role == 'admin' )
-
+                                                {{--<form method="POST" action="{{ url('/order' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">--}}
+                                                    {{--{{ method_field('DELETE') }}--}}
+                                                    {{--{{ csrf_field() }}--}}
+                                                    {{--<button type="submit" class="btn btn-danger btn-sm" title="Delete Order" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>--}}
+                                                {{--</form>--}}
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                @else
+                                    @foreach(Auth::user()->orders as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration or $item->id }}</td>
+                                            <td>{{ $item->firstName }}</td><td>{{ $item->lastName }}</td><td>{{ $item->address }}</td>
+                                            <td>
                                                 {{ $item->status }}
-                                                @if($item->status == 'waiting')
-                                                    <a href="{{ route('order.change',['id' => $item -> id]) }}">Shipped</a>
+                                            </td>
 
-                                                @endif
-                                            @else
-                                                {{ $item->status }}
-                                            @endif
-                                        </td>
+                                            <td>{{ $item->phone }}</td><td>{{ $item->orderDate }}</td>
+                                            <td>
+                                                <a href="{{ url('/order/' . $item->id) }}" title="View Order"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                                {{--<a href="{{ url('/order/' . $item->id . '/edit') }}" title="Edit Order"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>--}}
 
-
-
-
-                                        <td>{{ $item->phone }}</td><td>{{ $item->orderDate }}</td>
-                                        <td>
-                                            <a href="{{ url('/order/' . $item->id) }}" title="View Order"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                            {{--<a href="{{ url('/order/' . $item->id . '/edit') }}" title="Edit Order"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>--}}
-
-                                            <form method="POST" action="{{ url('/order' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
-                                                {{ method_field('DELETE') }}
-                                                {{ csrf_field() }}
-                                                <button type="submit" class="btn btn-danger btn-sm" title="Delete Order" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                                {{--<form method="POST" action="{{ url('/order' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">--}}
+                                                    {{--{{ method_field('DELETE') }}--}}
+                                                    {{--{{ csrf_field() }}--}}
+                                                    {{--<button type="submit" class="btn btn-danger btn-sm" title="Delete Order" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>--}}
+                                                {{--</form>--}}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                                 </tbody>
                             </table>
                             <div class="pagination-wrapper"> {!! $order->appends(['search' => Request::get('search')])->render() !!} </div>

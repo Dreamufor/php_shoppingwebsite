@@ -8,14 +8,22 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\View\View
      */
+
+
     public function index(Request $request)
     {
         $user = User::all();
@@ -28,6 +36,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\View\View
      */
+
 
     public function create(User $user)
     {
@@ -136,4 +145,5 @@ class UserController extends Controller
 
         return redirect()->back();
     }
+
 }

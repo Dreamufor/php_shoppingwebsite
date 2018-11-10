@@ -84,6 +84,15 @@ class OrderController extends Controller
 //
 //        return view('order.purchased');
 
+        $requestData = $request->validate([
+
+            'firstName' => 'required|string|max:20',
+            'lastName' => 'required|string|max:20',
+            'address' => 'required|string|max:30',
+            'phone' => 'required|string|max:50',
+        ]);
+
+
         $order = new Order([
               'firstName' => $_POST['firstName'],
               'lastName' => $_POST['lastName'],
@@ -96,7 +105,7 @@ class OrderController extends Controller
               'grandtotal' => Session::get('cart')->totalPrice,
               'user_id' => Auth::user()->id,
         ]);
-        $order->save();
+        $order->save($requestData);
 
 
         Log::info(Auth::user()->email.' Create the order');

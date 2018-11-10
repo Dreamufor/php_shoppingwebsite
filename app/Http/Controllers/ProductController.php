@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\ValidationException;
 use Session;
 
 class ProductController extends Controller
@@ -126,28 +127,47 @@ class ProductController extends Controller
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
-       if($_FILES['_files']['error'] > 0){
-           echo('');
-       }
-       elseif (isset($_FILES['_files'])){
-           move_uploaded_file($_FILES['_files']['tmp_name'],'images/products/'.$_FILES['_files']['name']);
-       }
+//        try {
+//            $this->validate($request, [
+//                'name' => 'required|string|max:20',
+//                'description' => 'required|string|max:50',
+//                'price' => 'required|number|min:1|max:9999999',
+//                'imgUrl' => 'required',
+//            ]);
+//        } catch (ValidationException $e) {
+//        }
+
+        $requestData = $request->validate([
+            'name' => 'required|string|max:20',
+            'description' => 'required|string|max:50',
+            'price' => 'required|numeric',
+        ]);
+
+        if($_FILES['_files']['error'] > 0){
+            echo('');
+        }
+        elseif (isset($_FILES['_files'])){
+            move_uploaded_file($_FILES['_files']['tmp_name'],'images/products/'.$_FILES['_files']['name']);
+        }
 
 
-       $product = new Product([
+        $product = new Product([
            'name' => $_POST['name'],
            'description' => $_POST['description'],
            'supplier_id' => $_POST['supplier_id'],
            'category_id' => $_POST['category_id'],
            'price' => $_POST['price'],
           'imgUrl' => 'images/products/'.$_FILES['_files']['name'],
-       ]);
+        ]);
 
 
-       $product->save();
+
+
+        $product->save($requestData);
 
 //
 //        $requestData = $request->all();
