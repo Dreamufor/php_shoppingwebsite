@@ -84,9 +84,9 @@ return [
     |
     */
 
-    'username' => env('ccc.kitchen.nz@gmail.com'),
+    'username' => env(''),
 
-    'password' => env('ccc@kitchen'),
+    'password' => env(''),
 
     /*
     |--------------------------------------------------------------------------
