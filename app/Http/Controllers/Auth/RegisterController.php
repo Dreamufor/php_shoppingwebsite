@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use App\Jobs\SendVerificationEmail;
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -75,7 +77,9 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+
+
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'address' => $data['address'],
@@ -83,7 +87,42 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'email_verified_at' => base64_encode($data['email']),
         ]);
+
+        Mail::to($data['email'])->send(new WelcomeMail($user));
+        return $user;
     }
+//
+//    public function create(Request $request)
+//    {
+//
+//
+//        $validator = Validator::make($request->all(), [
+//            'name' => 'required|string|max:20',
+//            'email' => 'required|string|email|max:30|unique:users',
+//            'password' => 'required|string|min:8|confirmed',
+//            'address' => 'required|string|max:30',
+//            'phone' => 'required|string|min:6|max:8',
+//        ]);
+//
+//
+//        if ($validator->fails()) {
+//            return redirect( route('register') )
+//                ->withErrors($validator)
+//                ->withInput();
+//        }
+//        $user = new User([
+//            'name' => $_POST['name'], 'address' => $_POST['address'],'password' => $_POST['password']
+//            , 'phone' => $_POST['phone'],
+//        ]);
+//        $user->save();
+//
+//        $user->sendEmail();
+//        // $user->nofify(new VerifyEmail($user));
+//        return view('auth.verify');
+//    }
+
+
+
 
 //    public function register(Request $request)
 //    {

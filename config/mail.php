@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'zhangm67@myunitec.ac.nz'),
+        'address' => env('MAIL_FROM_ADDRESS', 'leil10@myunitec.ac.nz'),
         'name' => env('MAIL_FROM_NAME', 'QualitySouvenir'),
     ],
 
@@ -84,9 +84,9 @@ return [
     |
     */
 
-    'username' => env('zhangm67@myunitec.ac.nz'),
+    'username' => env('leil10@myunitec.ac.nz'),
 
-    'password' => env('06091993'),
+    'password' => env('03111983'),
 
     /*
     |--------------------------------------------------------------------------
