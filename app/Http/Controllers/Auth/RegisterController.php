@@ -78,8 +78,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
-
-        $user = User::create([
+        return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'address' => $data['address'],
@@ -88,8 +87,19 @@ class RegisterController extends Controller
             'email_verified_at' => base64_encode($data['email']),
         ]);
 
-        Mail::to($data['email'])->send(new WelcomeMail($user));
-        return $user;
+
+//        $user = User::create([
+//            'name' => $data['name'],
+//            'email' => $data['email'],
+//            'address' => $data['address'],
+//            'phone' => $data['phone'],
+//            'password' => Hash::make($data['password']),
+//            'email_verified_at' => base64_encode($data['email']),
+//        ]);
+//
+//        Mail::to($data['email'])->send(new WelcomeMail($user));
+//
+//        return $user;
     }
 //
 //    public function create(Request $request)

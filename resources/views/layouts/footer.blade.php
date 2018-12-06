@@ -7,6 +7,7 @@
                 <hr />
                 <ul class="alert-light list-unstyled bg-light">
                     <li><a class="alert-link font-weight-normal" href="{{ url('/home/about') }}">About us</a></li>
+                    <li><a class="alert-link font-weight-normal" href="{{ asset('doc/web.pdf')  }}">Develop note</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
@@ -26,6 +27,7 @@
                     <li><a class="alert-link font-weight-normal" href="{{ url('/home/contact')  }}">Shipping</a></li>
                     <li><a class="alert-link font-weight-normal" href="{{ url('/home/contact')  }}">Payment</a></li>
                     <li><a class="alert-link font-weight-normal" href="{{ url('/home/contact')  }}">Contact us</a></li>
+
                 </ul>
             </div>
             <div class="col-md-3 text-center">
