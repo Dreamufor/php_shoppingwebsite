@@ -21,17 +21,28 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 </head>
+<style>
+
+    .content{
+        min-height: calc(100vh - 45vh);
+    }
+
+    .footer{
+        height: 50px;
+    }
+</style>
 <body>
 
 <div>
 
     @include('layouts.header')
 
-    <main class="container-fluid">
+    <main class="container-fluid content">
         @yield('content')
     </main>
-
-    @include('layouts.footer')
+    <div class="footer">
+        @include('layouts.footer')
+    </div>
 
 </div>
 </body>
